@@ -16,27 +16,23 @@ template = """
     
     RESPONSE:
 """
-
 prompt = PromptTemplate(
     input_variables=["email"],
     template=template,
 )
-
 #api_key="c45e8e03e070469bbea48b070fd8eaf1" 
 #aiml_key = st.text_input(label="API Key ",  type="password", key="api_key_input") 
-
-
-st.set_page_config(page_title="Convert Text to Email")
-st.markdown("## Enter Your Email To Convert")
-input_text = st.text_area(label="Type your text here", placeholder="Your Text to Email...", key="email_input")
-
-prompt_with_email = prompt.format(email_input_text)
 
 ## Define Client for OpenAI
 client = OpenAI(
     api_key=st.text_input(label="API Key ",  type="password", placeholder="Ex: sk-2twmA8tfCb8un4...", key="api_key_input"),
     base_url="https://api.aimlapi.com",
 )
+st.set_page_config(page_title="Convert Text to Email")
+st.markdown("## Enter Your Text To Convert to Email")
+input_text = st.text_area(label="Type your text here", placeholder="Your Text to Email...", key="email_input")
+
+prompt_with_email = prompt.format(email_input_text)
 
 response = client.chat.completions.create(
     model="gpt-4",
