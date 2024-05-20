@@ -39,18 +39,18 @@ if input_text:
         st.warning('Enter your OpenAI API Key.)', icon="🔥")
         st.stop()    
 
-prompt_with_template = prompt.format(email=input_text)
-response = client.chat.completions.create(
-    model="gpt-4",
-    messages=[{
-        "role": "system",
-        "content": "You are an Email assistant who knows everything.",
-    },
+    prompt_with_template = prompt.format(email=input_text)
+    response = client.chat.completions.create(
+        model="gpt-4",
+        messages=[{
+            "role": "system",
+            "content": "You are an Email assistant who knows everything.",
+            },
               {
                   "role": "user",
                   "content": prompt_with_template
               }
              ],
-)
-message =response.choices[0].message.content
-st.write(message)
+    )
+    message =response.choices[0].message.content
+    st.write(message)
