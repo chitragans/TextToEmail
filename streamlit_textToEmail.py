@@ -22,7 +22,10 @@ prompt = PromptTemplate(
 
 def load_LLM(openai_api_key):
     #llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
-    client = OpenAI( openai_api_key, base_url="https://api.aimlapi.com",) 
+    api_key = openai_api_key,
+    client = OpenAI( api_key, base_url="https://api.aimlapi.com",) 
+
+
 
     response = openai.Completion.create(  
         model="gpt-4",  
