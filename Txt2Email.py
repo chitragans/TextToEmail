@@ -24,8 +24,13 @@ prompt = PromptTemplate(
 
 api_key="c45e8e03e070469bbea48b070fd8eaf1" 
 
+
+
 st.set_page_config(page_title="Convert Text to Email")
 st.markdown("## Enter Your Email To Convert")
+input_text = st.text_area(label="Type here", placeholder="Your Email...", key="email_input")
+
+prompt_with_email = prompt.format(email=input_text)
 
 ## Define 
 client = OpenAI(
@@ -33,20 +38,19 @@ api_key,
 base_url="https://api.aimlapi.com",
 )
 
-response = openai.Completion.create(
-model="gpt-4",
-messages=[
-{
-  "role": "system",
-  "content": "You are an Email assistant who knows everything.",
-},
-{
-  "role": "user",
-  "content": "Input to Email"
-}
-],
+response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[{
+        "role": "system",
+        "content": "You are an Email assistant who knows everything.",
+    },
+              {
+                  "role": "user",
+                  "content": prompt_with_email
+              }
+             ],
 )
 
-message = response['choices'][0]['text']
+message =response.choices[0].message.content
 st.write(message)
 # print(f"Assistant: {message}")
