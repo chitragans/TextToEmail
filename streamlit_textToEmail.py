@@ -29,10 +29,10 @@ st.markdown("## Enter Your Email To Convert")
 
 def get_api_key():
     #input_text = st.text_input(label="OpenAI API Key ",  placeholder="Ex: sk-2twmA8tfCb8un4...", key="openai_api_key_input")
-    input_text = st.text_input(label="OpenAI API Key ",  type="password", key="openai_api_key_input")
+    input_text = st.text_input(label="API Key",  type="password", key="api_key_input")
     return input_text
 
-openai_api_key = get_api_key()
+api_key = get_api_key()
 
 def get_text():
     input_text = st.text_area(label="Type here", placeholder="Your Email...", key="email_input")
@@ -47,11 +47,15 @@ if len(email_input.split(" ")) > 700:
 st.markdown("### Here is your Drafted Email:")
 
 if email_input:
-    if not openai_api_key:
-        st.warning('Enter your OpenAI API Key.)', icon="🔥")
+    if not api_key:
+        st.warning('Enter your API Key.)', icon="🔥")
         st.stop()
+    client = openai.OpenAI( 
+        api_key= api_key, 
+        base_url="https://api.aimlapi.com/", 
+    ) 
 
-    llm = load_LLM(openai_api_key=openai_api_key)
+    llm = load_LLM(api_key=api_key)
 
     #prompt_with_email = prompt.format(tone=option_tone, dialect=option_dialect, email=email_input)
     prompt_with_email = prompt.format(email=email_input)
