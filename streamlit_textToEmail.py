@@ -41,7 +41,8 @@ def get_text():
 
 email_input = get_text()
 
-def load_llm(email_input):
+def load_llm(input_text):
+    
     response = openai.Completion.create(  
         model="gpt-4",  
         messages=[  
@@ -49,7 +50,7 @@ def load_llm(email_input):
     "role": "system", "content": "You are an Email Assitant.", 
      },  
     {  
-    "role": "user", "content": email_input
+    "role": "user", "content": input_text
     }  
     ],  
     )  
