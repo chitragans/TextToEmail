@@ -32,10 +32,10 @@ input_text = st.text_area(label="Type here", placeholder="Your Email...", key="e
 
 prompt_with_email = prompt.format(email=input_text)
 
-## Define 
+## Define Client for OpenAI
 client = OpenAI(
-api_key,
-base_url="https://api.aimlapi.com",
+    api_key="c45e8e03e070469bbea48b070fd8eaf1",
+    base_url="https://api.aimlapi.com",
 )
 
 response = client.chat.completions.create(
