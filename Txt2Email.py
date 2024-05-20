@@ -34,7 +34,7 @@ client = OpenAI(
 
 input_text = st.text_area(label="Type your text here", placeholder="Your Text to Email...", key="email_input")
 
-prompt_with_template = prompt.format (input_text)
+prompt_with_template = prompt.format (email_input)
 
 response = client.chat.completions.create(
     model="gpt-4",
