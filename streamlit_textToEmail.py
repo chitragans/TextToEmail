@@ -19,7 +19,8 @@ prompt = PromptTemplate(
     input_variables=["email"],
     template=template,
 )
-api_key = get_api_key()
+api_key = st.text_input(label="OpenAI API Key ",  type="password", key="openai_api_key_input") 
+
 client = OpenAI(api_key, base_url="https://api.aimlapi.com",) 
 # def load_LLM(openai_api_key):
 #     #llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
