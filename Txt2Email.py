@@ -34,7 +34,7 @@ if len(input_text.split(" ")) > 700:
     st.write("Please enter a shorter text up to a max of 700 words")
     st.stop()
 
-if email_input:
+if input_text:
     if not openai_api_key:
         st.warning('Enter your OpenAI API Key.)', icon="🔥")
         st.stop()    
