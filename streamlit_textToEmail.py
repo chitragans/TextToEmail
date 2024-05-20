@@ -21,8 +21,24 @@ prompt = PromptTemplate(
 )
 
 def load_LLM(openai_api_key):
-    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
-    return llm
+    #llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
+    client = OpenAI( api_key=os.getenv("API_TOKEN"), base_url="https://api.aimlapi.com",) 
+
+    response = openai.Completion.create(  
+        model="gpt-4",  
+        messages=[  
+    {  
+    "role": "system", "content": "You are an AI assistant who knows everything.", 
+     },  
+    {  
+    "role": "user", "content": "Tell me, why is the sky blue?"  
+    }  
+    ],  
+
+    )  
+    message = response['choices'][0]['text']  
+        
+    return response
 
 st.set_page_config(page_title="Convert Text to Email")
 st.markdown("## Enter Your Email To Convert")
