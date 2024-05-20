@@ -32,7 +32,7 @@ client = OpenAI(
     base_url="https://api.aimlapi.com",
 )
 
-input_text = st.text_area(label="Type your text here", placeholder="Your Text to Email...", key="text_input")
+input_text = st.text_area(label="Type your text here", placeholder="Your Text to Email...", key="email_input")
 
 prompt_with_template = prompt.format (input_text)
 
