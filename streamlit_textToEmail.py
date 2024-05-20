@@ -1,7 +1,6 @@
 import streamlit as st
 from langchain import PromptTemplate
-#from langchain_openai import OpenAI
-from openai import OpenAI
+from langchain_openai import OpenAI
 
 template = """
     Below is an email that may be poorly worded.
@@ -20,9 +19,10 @@ prompt = PromptTemplate(
     input_variables=["email"],
     template=template,
 )
-api_key = st.text_input(label="OpenAI API Key ",  type="password", key="openai_api_key_input") 
 
-client = OpenAI("c45e8e03e070469bbea48b070fd8eaf1", base_url="https://api.aimlapi.com",) 
+def load_LLM(openai_api_key):
+    llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
+    return llm
 
 st.set_page_config(page_title="Convert Text to Email")
 st.markdown("## Enter Your Email To Convert")
@@ -32,40 +32,30 @@ def get_api_key():
     input_text = st.text_input(label="OpenAI API Key ",  type="password", key="openai_api_key_input")
     return input_text
 
+openai_api_key = get_api_key()
+
 def get_text():
     input_text = st.text_area(label="Type here", placeholder="Your Email...", key="email_input")
     return input_text
 
 email_input = get_text()
 
-def load_llm(input_text):    
-    response = openai.Completion.create(  
-        model="gpt-4",  
-        messages=[  
-    {  
-    "role": "system", "content": "You are an Email Assitant.", 
-     },  
-    {  
-    "role": "user", "content": input_text
-    }  
-    ],  
-    )  
-    message = response['choices'][0]['text']  
-        
-    return response
-
+if len(email_input.split(" ")) > 700:
+    st.write("Please enter a shorter email up to a max of 700 words")
+    st.stop()
 
 st.markdown("### Here is your Drafted Email:")
-input_text = st.text_area(label="Type here", placeholder="Your Email...", key="email_input")
+
 if email_input:
     if not openai_api_key:
         st.warning('Enter your OpenAI API Key.)', icon="🔥")
         st.stop()
-    else:
-        prompt_with_email = prompt.format(email=email_input)
-        formatted_email = load_llm(prompt_with_email)
 
-st.write(formatted_email)
+    llm = load_LLM(openai_api_key=openai_api_key)
 
+    #prompt_with_email = prompt.format(tone=option_tone, dialect=option_dialect, email=email_input)
+    prompt_with_email = prompt.format(email=email_input)
 
+    formatted_email = llm(prompt_with_email)
 
+    st.write(formatted_email)
