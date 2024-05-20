@@ -20,27 +20,9 @@ prompt = PromptTemplate(
     template=template,
 )
 
-def load_LLM(openai_api_key):
-    #llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
-    api_key = openai_api_key,
-    client = OpenAI( api_key, base_url="https://api.aimlapi.com",) 
-
-
-
-    response = openai.Completion.create(  
-        model="gpt-4",  
-        messages=[  
-    {  
-    "role": "system", "content": "You are an AI assistant who knows everything.", 
-     },  
-    {  
-    "role": "user", "content": "Tell me, why is the sky blue?"  
-    }  
-    ],  
-    )  
-    message = response['choices'][0]['text']  
-        
-    return response
+client = OpenAI( api_key, base_url="https://api.aimlapi.com",) 
+# def load_LLM(openai_api_key):
+#     #llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
 
 st.set_page_config(page_title="Convert Text to Email")
 st.markdown("## Enter Your Email To Convert")
@@ -50,14 +32,30 @@ def get_api_key():
     input_text = st.text_input(label="OpenAI API Key ",  type="password", key="openai_api_key_input")
     return input_text
 
-openai_api_key = get_api_key()
-print(openai_api_key)
+api_key = get_api_key()
+print(api_key)
 
 def get_text():
     input_text = st.text_area(label="Type here", placeholder="Your Email...", key="email_input")
     return input_text
 
 email_input = get_text()
+
+def load_llm(email_input):
+    response = openai.Completion.create(  
+        model="gpt-4",  
+        messages=[  
+    {  
+    "role": "system", "content": "You are an Email Assitant.", 
+     },  
+    {  
+    "role": "user", "content": email_input
+    }  
+    ],  
+    )  
+    message = response['choices'][0]['text']  
+        
+    return response
 
 if len(email_input.split(" ")) > 700:
     st.write("Please enter a shorter email up to a max of 700 words")
@@ -78,3 +76,6 @@ if email_input:
     formatted_email = llm(prompt_with_email)
 
     st.write(formatted_email)
+
+
+
