@@ -22,7 +22,7 @@ prompt = PromptTemplate(
 
 def load_LLM(openai_api_key):
     #llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
-    client = OpenAI( api_key=os.getenv("API_TOKEN"), base_url="https://api.aimlapi.com",) 
+    client = OpenAI( open_api_key, base_url="https://api.aimlapi.com",) 
 
     response = openai.Completion.create(  
         model="gpt-4",  
@@ -67,7 +67,7 @@ if email_input:
         st.warning('Enter your OpenAI API Key.)', icon="🔥")
         st.stop()
 
-    llm = load_LLM(openai_api_key=openai_api_key)
+    llm = load_LLM(openai_api_key)
 
     #prompt_with_email = prompt.format(tone=option_tone, dialect=option_dialect, email=email_input)
     prompt_with_email = prompt.format(email=email_input)
