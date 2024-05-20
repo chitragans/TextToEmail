@@ -34,7 +34,6 @@ def load_LLM(openai_api_key):
     "role": "user", "content": "Tell me, why is the sky blue?"  
     }  
     ],  
-
     )  
     message = response['choices'][0]['text']  
         
@@ -49,6 +48,7 @@ def get_api_key():
     return input_text
 
 openai_api_key = get_api_key()
+print(openai_api_key)
 
 def get_text():
     input_text = st.text_area(label="Type here", placeholder="Your Email...", key="email_input")
