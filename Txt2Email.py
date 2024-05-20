@@ -22,8 +22,8 @@ prompt = PromptTemplate(
     template=template,
 )
 
-api_key="c45e8e03e070469bbea48b070fd8eaf1" 
-
+#api_key="c45e8e03e070469bbea48b070fd8eaf1" 
+api_key = st.text_input(label="OpenAI API Key ",  type="password", key="openai_api_key_input") 
 
 
 st.set_page_config(page_title="Convert Text to Email")
@@ -34,7 +34,7 @@ prompt_with_email = prompt.format(email=input_text)
 
 ## Define Client for OpenAI
 client = OpenAI(
-    api_key="c45e8e03e070469bbea48b070fd8eaf1",
+    api_key=api_key,
     base_url="https://api.aimlapi.com",
 )
 
