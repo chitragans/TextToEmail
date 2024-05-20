@@ -29,7 +29,8 @@ client = OpenAI(
 )
 
 input_text = st.text_area(label="Type your text here", placeholder="Your Text to Email...", key="email_input")
-if len(email_input.split(" ")) > 700:
+
+if len(input_text.split(" ")) > 700:
     st.write("Please enter a shorter text up to a max of 700 words")
     st.stop()
 
