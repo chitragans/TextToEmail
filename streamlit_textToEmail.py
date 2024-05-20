@@ -58,9 +58,6 @@ def load_llm(input_text):
         
     return response
 
-if len(email_input.split(" ")) > 700:
-    st.write("Please enter a shorter email up to a max of 700 words")
-    st.stop()
 
 st.markdown("### Here is your Drafted Email:")
 
@@ -69,7 +66,7 @@ if email_input:
         st.warning('Enter your OpenAI API Key.)', icon="🔥")
         st.stop()
 
-    llm = load_LLM(openai_api_key)
+    #llm = load_LLM(openai_api_key)
 
     #prompt_with_email = prompt.format(tone=option_tone, dialect=option_dialect, email=email_input)
     prompt_with_email = prompt.format(email=email_input)
