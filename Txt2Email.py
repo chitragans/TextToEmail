@@ -1,6 +1,6 @@
 import os
 from openai import OpenAI
-import streamlist as st
+import streamlit as st
 from langchain import PromptTemplate
 
 
