@@ -19,8 +19,8 @@ prompt = PromptTemplate(
     input_variables=["email"],
     template=template,
 )
-
-client = OpenAI( api_key, base_url="https://api.aimlapi.com",) 
+api_key = get_api_key()
+client = OpenAI(api_key, base_url="https://api.aimlapi.com",) 
 # def load_LLM(openai_api_key):
 #     #llm = OpenAI(temperature=.7, openai_api_key=openai_api_key)
 
@@ -32,17 +32,13 @@ def get_api_key():
     input_text = st.text_input(label="OpenAI API Key ",  type="password", key="openai_api_key_input")
     return input_text
 
-api_key = get_api_key()
-print(api_key)
-
 def get_text():
     input_text = st.text_area(label="Type here", placeholder="Your Email...", key="email_input")
     return input_text
 
 email_input = get_text()
 
-def load_llm(input_text):
-    
+def load_llm(input_text):    
     response = openai.Completion.create(  
         model="gpt-4",  
         messages=[  
@@ -60,20 +56,16 @@ def load_llm(input_text):
 
 
 st.markdown("### Here is your Drafted Email:")
-
+input_text = st.text_area(label="Type here", placeholder="Your Email...", key="email_input")
 if email_input:
     if not openai_api_key:
         st.warning('Enter your OpenAI API Key.)', icon="🔥")
         st.stop()
+    else
+        prompt_with_email = prompt.format(email=email_input)
+        formatted_email = load_llm(prompt_with_email)
 
-    #llm = load_LLM(openai_api_key)
-
-    #prompt_with_email = prompt.format(tone=option_tone, dialect=option_dialect, email=email_input)
-    prompt_with_email = prompt.format(email=email_input)
-
-    formatted_email = llm(prompt_with_email)
-
-    st.write(formatted_email)
+st.write(formatted_email)
 
 
 
