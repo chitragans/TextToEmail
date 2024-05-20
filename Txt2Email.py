@@ -28,13 +28,13 @@ st.markdown("## Enter Your Text To Convert to Email")
 
 ## Define Client for OpenAI
 client = OpenAI(
-    api_key=st.text_input(label="API Key ",  type="password", placeholder="Ex: sk-2twmA8tfCb8un4...", key="api_key_input"),
+    api_key=st.text_input(label="API Key ",  type="password", placeholder="Ex: sk-2Cb8un4...", key="api_key_input"),
     base_url="https://api.aimlapi.com",
 )
 
-input_text = st.text_area(label="Type your text here", placeholder="Your Text to Email...", key="email_input")
+input_text = st.text_area(label="Type your text here", placeholder="Your Text to Email...", key="text_input")
 
-prompt_with_template = prompt.format(input_text)
+prompt_with_template = prompt.format(text_input)
 
 response = client.chat.completions.create(
     model="gpt-4",
