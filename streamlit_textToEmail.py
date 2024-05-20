@@ -61,7 +61,7 @@ if email_input:
     if not openai_api_key:
         st.warning('Enter your OpenAI API Key.)', icon="🔥")
         st.stop()
-    else
+    else:
         prompt_with_email = prompt.format(email=email_input)
         formatted_email = load_llm(prompt_with_email)
 
