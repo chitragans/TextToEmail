@@ -1,8 +1,8 @@
 import os
+import openai
 from openai import OpenAI
 import streamlit as st
 from langchain import PromptTemplate
-
 
 template = """
     Below is an email that may be poorly worded.
