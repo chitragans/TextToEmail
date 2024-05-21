@@ -35,9 +35,9 @@ if len(input_text.split(" ")) > 700:
     st.stop()
 
 if input_text:
-    if not api_key:
-        st.warning('Enter your OpenAI API Key.)', icon="🔥")
-        st.stop()    
+#    if not api_key:
+#       st.warning('Enter your API Key.)', icon="🔥")
+#       st.stop()    
 
     prompt_with_template = prompt.format(email=input_text)
     response = client.chat.completions.create(
