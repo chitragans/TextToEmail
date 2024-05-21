@@ -35,7 +35,7 @@ if len(input_text.split(" ")) > 700:
     st.stop()
 
 if input_text:
-    if not openai_api_key:
+    if not api_key:
         st.warning('Enter your OpenAI API Key.)', icon="🔥")
         st.stop()    
 
