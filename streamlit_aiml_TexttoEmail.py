@@ -24,7 +24,8 @@ st.markdown("## Enter Your Text To Convert to Email")
 
 ## Define Client for OpenAI
 client = OpenAI(
-    api_key=st.text_input(label="API Key ",  type="password", placeholder="Ex: sk-2Cb8un4...", key="api_key_input"),
+    #api_key=st.text_input(label="API Key ",  type="password", placeholder="Ex: sk-2Cb8un4...", key="api_key_input"),
+    api_key="c45e8e03e070469bbea48b070fd8eaf1",
     base_url="https://api.aimlapi.com",
 )
 
